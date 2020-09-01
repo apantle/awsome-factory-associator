@@ -73,7 +73,7 @@ beforeEach(() => {
 
 
 /**
-* Litern tests
+* Linter tests
 */
 const glob = require('glob');
 const CLIEngine = require('eslint').CLIEngine;
@@ -89,7 +89,7 @@ const engine = new CLIEngine({
 
 describe('Linting on ' + testModule, () => {
   before(function() {
-    if (process.env.NO_LINTER == 'true') {
+    if (process.env.NO_LINTER) {
       this.skip();
     }
   });
@@ -119,6 +119,10 @@ describe('Linting on ' + testModule, () => {
     });
   }
   const results = engine.executeOnFiles(paths).results;
+
+  if (process.env.NO_LINTER) {
+    return;
+  }
 
   results.forEach((result) => generateTest(result));
 });

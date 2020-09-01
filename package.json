@@ -1,6 +1,6 @@
 {
-  "name": "awsome-factory-associator",
-  "version": "2.0.0",
+  "name": "@apantle/awsome-factory-associator",
+  "version": "2.1.0-beta",
   "description": "Provides a syntax to define factories with any kind of association.",
   "main": "index.js",
   "directories": {
@@ -15,6 +15,7 @@
   },
   "devDependencies": {
     "babel-eslint": "^10.1.0",
+    "debug": "^4.1.1",
     "eslint": "^6.8.0",
     "faker": "^4.1.0",
     "mocha": "^5.2.0",
@@ -24,11 +25,12 @@
     "should": "^13.2.3"
   },
   "scripts": {
-    "test": "node ./node_modules/mocha/bin/mocha test/bootstrap.test.js test --recursive --timeout 8000"
+    "test": "mocha test/bootstrap.test.js test --recursive --timeout 8000",
+    "lint": "eslint --fix ."
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/susuhahnml/awsome-factory-associator.git"
+    "url": "git+https://github.com/apantle/awsome-factory-associator.git"
   },
   "keywords": [
     "factory",
@@ -40,9 +42,12 @@
     "associations"
   ],
   "author": "Susana Hahn Martin Lunas",
+  "contributors": [
+    "Jesus E. Franco Martinez <tezcatl@fedoraproject.org> (https://jefrancomix.work)"
+  ],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/susuhahnml/awsome-factory-associator/issues"
+    "url": "https://github.com/apantle/awsome-factory-associator/issues"
   },
-  "homepage": "https://github.com/susuhahnml/awsome-factory-associator#readme"
+  "homepage": "https://github.com/apantle/awsome-factory-associator#readme"
 }

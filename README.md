@@ -1,8 +1,10 @@
 # The Awesome Factory Associator
 [![npm version](https://badge.fury.io/js/awsome-factory-associator.svg)](http://badge.fury.io/js/awsome-factory-associator)
-[![Dependencies](https://david-dm.org/susuhahnml/awsome-factory-associator.svg)](https://david-dm.org/susuhahnml/awsome-factory-associator)
-[![DevDependencies](https://david-dm.org/susuhahnml/awsome-factory-associator/dev-status.svg)](https://david-dm.org/susuhahnml/awsome-factory-associator?type=dev)
-[![GitHub license](https://img.shields.io/badge/license-MIT-green.svg)](https://raw.githubusercontent.com/susuhahnml/awsome-factory-associator/master/LICENSE)
+[![codebeat badge](https://codebeat.co/badges/be272268-4020-4c75-8ada-2344a1c88418)](https://codebeat.co/projects/github-com-apantle-awsome-factory-associator-master)
+[![Maintainability](https://api.codeclimate.com/v1/badges/9c3b9e130ace1bcfe1d0/maintainability)](https://codeclimate.com/github/apantle/awsome-factory-associator/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/9c3b9e130ace1bcfe1d0/test_coverage)](https://codeclimate.com/github/apantle/awsome-factory-associator/test_coverage)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 
 
   Provides a syntax to **define factories** with **any kind of association**. Helping you create models and the **environment** needed for each **test** with **inline awesome configuration**.
