@@ -210,6 +210,12 @@ In each creation new associations can be added in the options even if not specif
   //Since no as is defined will use plural form of Salesman
 ```
 
+
+Take notice that with an empty optionsArray **no related model will be created**,
+in order to create at least a related model using its factory, give it an empty
+object (using the defaults in that), if you need to override an option, give it
+what you want overriden:
+
 ```javascript
   factory.define("storeFact", Store)
   .attr("city","London")
@@ -219,6 +225,10 @@ In each creation new associations can be added in the options even if not specif
   .assocMany("StoreHired","storeFact",[{city:"Paris"},{}])
   //If no as is defined, use Store plural form (Stores) instead of StoreHired
 ```
+
+In this example two connected models are created:
+  - first with city attribute set to "Paris",
+  - other with all the defaults set in `storeFact` factory
 
 ##### Usage
 
@@ -442,6 +452,9 @@ factory: {
 ```
 
 The default value is **1**.
+
+In order to get in your logs the output of retries (and in case the retrying failed, the final error),
+you must use the environment var `DEBUG=factory` to get a nice output of the reason of the fail.
 
 #### Populated Object
 The object returned after the creation will be populated, in order to refer to its values and associations during tests. To set the depth of this population use the parameter ``{populationDepth: depth }``, where ``depth`` indicates how many times the nested models associations will be populated. The default value is **3**. Note that when having **circular references**, the returned object will be highly populated so we advise you not to use big numbers in this configuration.

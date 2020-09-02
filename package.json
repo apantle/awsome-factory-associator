@@ -1,6 +1,6 @@
 {
   "name": "@apantle/awsome-factory-associator",
-  "version": "2.1.0-1",
+  "version": "2.1.1",
   "description": "Provides a syntax to define factories with any kind of association.",
   "main": "index.js",
   "directories": {
