@@ -7,25 +7,24 @@
     "test": "test"
   },
   "dependencies": {
-    "bluebird": "^3.5.0",
-    "pg": "^7.4.1",
-    "require-tree": "^1.1.1",
-    "lodash": "^4.17.5",
-    "sails-hook-fireline": "^5.0.0"
+    "bluebird": "^3.7.2",
+    "lodash": "^4.17.20"
   },
   "devDependencies": {
     "babel-eslint": "^10.1.0",
     "debug": "^4.1.1",
-    "eslint": "^6.8.0",
+    "dotenv": "^8.2.0",
+    "eslint": "^7.8.1",
     "faker": "^4.1.0",
-    "mocha": "^5.2.0",
-    "mysql2": "^1.3.6",
-    "sails": "^1.0.2",
-    "sequelize": "^5.0.0-beta.10",
+    "mocha": "^8.1.3",
+    "mysql2": "^2.1.0",
+    "pg": "^8.3.3",
+    "require-tree": "^1.1.1",
+    "sequelize": "^5.22.3",
     "should": "^13.2.3"
   },
   "scripts": {
-    "test": "mocha test/bootstrap.test.js test --recursive --timeout 8000",
+    "test": "mocha test/bootstrap.test.js --timeout 8000",
     "lint": "eslint --fix ."
   },
   "repository": {
@@ -35,10 +34,8 @@
   "keywords": [
     "factory",
     "association",
-    "sails",
     "sequelize",
     "create",
-    "hook",
     "associations"
   ],
   "author": "Susana Hahn Martin Lunas",

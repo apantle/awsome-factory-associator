@@ -4,13 +4,15 @@
  * @description ::Represents a Passenger
  */
 
+const { DataTypes } = require('sequelize');
+
 module.exports = {
   attributes: {
     name: {
-      type: Sequelize.STRING,
+      type: DataTypes.STRING,
     },
     is_disabled: {
-      type: Sequelize.BOOLEAN,
+      type: DataTypes.BOOLEAN,
       defaultValue: false
     }
   },

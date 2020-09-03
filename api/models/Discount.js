@@ -4,10 +4,12 @@
  * @description ::Represents a Discount
  */
 
+const { DataTypes } = require('sequelize');
+
 module.exports = {
   attributes: {
     percentage: {
-      type: Sequelize.INTEGER,
+      type: DataTypes.INTEGER
     },
   },
   associations: () => {

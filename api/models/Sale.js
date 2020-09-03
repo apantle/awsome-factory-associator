@@ -4,13 +4,15 @@
  * @description ::Represents a Sale
  */
 
+const { DataTypes } = require('sequelize');
+
 module.exports = {
   attributes: {
     total: {
-      type: Sequelize.INTEGER,
+      type: DataTypes.INTEGER,
     },
     cancelled_at: {
-      type: Sequelize.DATE,
+      type: DataTypes.DATE,
     }
   },
   associations: () => {

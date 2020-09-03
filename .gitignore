@@ -1,40 +1,8 @@
-########################
-# sails
-########################
-.sails
-.waterline
-.rigging
-.tmp
-
-
-########################
-# node.js / npm
-########################
-lib-cov
-*.seed
-*.log
-*.csv
-*.dat
-*.out
-*.pid
-*.gz
+.env
 
 package-lock.json
-
-pids
-*.log
-results
-
 node_modules
-
 npm-debug.log
-
-########################
-# vagrant
-########################
-.vagrant/*
-
-
 
 ########################
 # misc / editors
@@ -45,16 +13,4 @@ npm-debug.log
 .netbeans
 nbproject
 .idea
-
-
-########################
-# local config
-########################
-config/local.js
-config/key.json
-test/mocha.opts
-
-########################
-# Vim
-########################
 *.swp

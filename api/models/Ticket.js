@@ -4,20 +4,22 @@
  * @description ::Represents a Ticket
  */
 
+const { DataTypes } = require('sequelize');
+
 module.exports = {
   attributes: {
     seat: {
-      type: Sequelize.STRING,
+      type: DataTypes.STRING,
     },
     level: {
-      type: Sequelize.INTEGER,
+      type: DataTypes.INTEGER,
       defaultValue: 1
     },
     price: {
-      type: Sequelize.INTEGER,
+      type: DataTypes.INTEGER,
     },
     code: {
-      type: Sequelize.INTEGER,
+      type: DataTypes.INTEGER,
       unique: true
     },
   },
@@ -40,5 +42,4 @@ module.exports = {
       }
     });
   }
-
 };

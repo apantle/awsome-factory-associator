@@ -4,10 +4,12 @@
  * @description ::Represents a Store
  */
 
+const { DataTypes } = require('sequelize');
+
 module.exports = {
   attributes: {
     city: {
-      type: Sequelize.STRING,
+      type: DataTypes.STRING,
     }
   },
   associations: () => {

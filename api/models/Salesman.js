@@ -4,10 +4,12 @@
  * @description ::Represents a Salesman
  */
 
+const { DataTypes } = require('sequelize');
+
 module.exports = {
   attributes: {
     name: {
-      type: Sequelize.STRING,
+      type: DataTypes.STRING,
     }
   },
   associations: () => {
