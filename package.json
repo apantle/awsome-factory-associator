@@ -1,6 +1,6 @@
 {
   "name": "@apantle/awsome-factory-associator",
-  "version": "2.2.0",
+  "version": "2.2.1",
   "description": "Provides a syntax to define factories with any kind of association.",
   "main": "index.js",
   "directories": {
@@ -8,7 +8,8 @@
   },
   "dependencies": {
     "bluebird": "^3.7.2",
-    "lodash": "^4.17.20"
+    "lodash": "^4.17.20",
+    "require-tree": "^1.1.1"
   },
   "devDependencies": {
     "babel-eslint": "^10.1.0",
@@ -20,7 +21,6 @@
     "mysql2": "^2.1.0",
     "pg": "^8.3.3",
     "prettier": "^2.1.1",
-    "require-tree": "^1.1.1",
     "sequelize": "^5.22.3",
     "should": "^13.2.3"
   },

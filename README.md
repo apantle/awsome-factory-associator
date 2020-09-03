@@ -6,8 +6,7 @@
 
 Provides a syntax to **define factories** with **any kind of association**. Helping you create models and the **environment** needed for each **test** with **inline awesome configuration**.
 
-Tests bootstrap loading of models based on [sails-hook-sequelize](https://github.com/KSDaemon/sails-hook-sequelize).
-**Now it can be used with any project using sequelize without forcing to install or lift sails**.
+Tests bootstrap loading of models based on [sails-hook-sequelize](https://github.com/KSDaemon/sails-hook-sequelize). **Now it can be used with any project using sequelize without forcing to install or lift sails**.
 
 Using as base the code of module **sails-industrial-factories** for the attributes creation.
 
@@ -148,9 +147,10 @@ The following options are available for any association type.
 When the object to associate has **already** been **crated** its id can be passed in the options object using the _as_ key or the foreignKey. When an id is passed no additional object creation will be made. In this example the sale is already created and its id is passed to the ticket creation.
 
 ```javascript
-  factory.create("saleFact",{total:10})//Crates a sale and return the promise
+factory
+  .create('saleFact', { total: 10 }) //Crates a sale and return the promise
   .then((saleCreated) => {
-    factory.create("ticketFact",{Sale:saleCreated.id}); //Uses the sale already created
+    factory.create('ticketFact', { Sale: saleCreated.id }); //Uses the sale already created
   })
   .catch((err) => {
     // Handle error
@@ -162,9 +162,10 @@ Only one sale will be crated in the previous example.
 In this case the foreignKey can be used instead of the association. Foreign Keys will always overwrite any other association defined.
 
 ```javascript
-  factory.create("saleFact",{total:10})//Crates a sale and return the promise
+factory
+  .create('saleFact', { total: 10 }) //Crates a sale and return the promise
   .then((saleCreated) => {
-    factory.create("ticketFact",{sale_key:saleCreated.id}); //Uses the sale already created
+    factory.create('ticketFact', { sale_key: saleCreated.id }); //Uses the sale already created
   })
   .catch((err) => {
     //Handle error
@@ -505,8 +506,7 @@ Since the factory _salesmanWithStores_ creates a store using the factory _storeW
 
 When using the same factory more than one time the models creation might **fail** due to uniqueness issues. This is why we advise you to use **faker** when defining unique attributes. Even by using random data, it can fail by chance. To avoid such errors the creation of a model can be **retried** in case of uniqueness error.
 
-The **number** of times the creation will be retried can be
-configured in `config/local.js` or environment var AFA_RETRIES:
+The **number** of times the creation will be retried can be configured in `config/local.js` or environment var AFA_RETRIES:
 
 ```js
 factory: {
@@ -516,6 +516,4 @@ factory: {
 
 The default value is **1**.
 
-In order to get in your logs the output of retries (and in case the retrying failed, the final error), you must use the
-environment var `DEBUG=awsome-factory` to get a nice output of the reason of the fail.
-
+In order to get in your logs the output of retries (and in case the retrying failed, the final error), you must use the environment var `DEBUG=awsome-factory` to get a nice output of the reason of the fail.

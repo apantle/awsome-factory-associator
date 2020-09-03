@@ -11,15 +11,12 @@ let conn;
 
 before((done) => {
   const { AFA_LOGGING: logOption } = process.env;
-  const logger = logOption === 'console'
-    ? console.log
-    : logOption === 'debug'
-      ? log
-      : false;
+  const logger =
+    logOption === 'console' ? console.log : logOption === 'debug' ? log : false;
 
   let dialectOptions;
   try {
-    dialectOptions = JSON.parse(process.env.AFA_DB_DIALECT_OPTIONS)
+    dialectOptions = JSON.parse(process.env.AFA_DB_DIALECT_OPTIONS);
   } catch (e) {
     dialectOptions = {};
   }
