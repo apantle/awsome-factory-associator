@@ -17,6 +17,13 @@ before((done) => {
       ? log
       : false;
 
+  let dialectOptions;
+  try {
+    dialectOptions = JSON.parse(process.env.AFA_DB_DIALECT_OPTIONS)
+  } catch (e) {
+    dialectOptions = {};
+  }
+
   global.should = should;
   global.SequelizeConn = conn = new Sequelize({
     database: process.env.AFA_DB_NAME,
@@ -26,11 +33,7 @@ before((done) => {
     port: process.env.AFA_DB_PORT,
     dialect: process.env.AFA_DB_DIALECT,
     logging: logger,
-    dialectOptions: {
-      ssl: {
-        rejectUnauthorized: false
-      }
-    }
+    dialectOptions
   });
 
   log('to authenticate');
@@ -74,6 +77,10 @@ before((done) => {
 
     (async function () {
       await SequelizeConn.sync({});
+      /**
+       *
+       * @type {Factory}
+       */
       global.factory = require('../index.js');
       factory.load();
     })().then(done);

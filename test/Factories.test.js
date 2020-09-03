@@ -1,3 +1,4 @@
+/* global factory, Passenger, Ticket, Sale, Salesman, Store */
 const Promise = require('bluebird');
 const should = require('should');
 const faker = require('faker');
@@ -5,7 +6,7 @@ const faker = require('faker');
 describe('Factories test', function () {
   describe('Creation', function () {
     it('should define a factory', () => {
-      return new Promise((resolve, reject) => {
+      return new Promise((resolve) => {
         factory.define('passenger', Passenger).attr('name', 'Pedro');
         factory.definitions.passenger.name.should.equal('passenger');
         factory.definitions.passenger.config.attr.name.should.equal('Pedro');
@@ -13,10 +14,10 @@ describe('Factories test', function () {
       });
     });
 
-    it('should return error defining repeted name', () => {
+    it('should return error defining repeated name', () => {
       try {
-        factory.define('paasengerRepeted', Passenger);
-        factory.define('paasengerRepeted', Passenger);
+        factory.define('passengerRepeated', Passenger);
+        factory.define('passengerRepeated', Passenger);
         true.should.be.false();
       } catch (err) {
         should.exist(err);
@@ -79,7 +80,7 @@ describe('Factories test', function () {
         });
     });
 
-    it('should create using function arready called as attribute', () => {
+    it('should create using function already called as attribute', () => {
       factory
         .define('saleCancelled', Sale)
         .attr('total', faker.random.number)
@@ -101,7 +102,7 @@ describe('Factories test', function () {
       });
     });
 
-    it('should create auto incremet for string', () => {
+    it('should create auto increment for string', () => {
       factory
         .define('passengerAutoIncrement', Passenger)
         .attr('name', faker.lorem.word, { auto_increment: 2 });
@@ -126,7 +127,7 @@ describe('Factories test', function () {
         });
     });
 
-    it('should create auto incremet for intener', () => {
+    it('should create auto increment for integer', () => {
       let ticket1;
       factory
         .define('ticketIncrementCode', Ticket)
@@ -162,7 +163,7 @@ describe('Factories test', function () {
   });
 
   describe('Assoc', function () {
-    it('should define a ticket asociated to a sale', () => {
+    it('should define a ticket associated to a sale', () => {
       factory.define('saleDef', Sale).attr('total', 120);
       factory
         .define('ticketDef', Ticket)
@@ -246,7 +247,7 @@ describe('Factories test', function () {
           .define('ticketWrongAss', Ticket)
           .attr('seat', '22A')
           .attr('price', 16)
-          .assoc('MainDiscount', 'discountFact'); //Using asssoc and should be assocAfter
+          .assoc('MainDiscount', 'discountFact'); //Using assoc and should be assocAfter
         true.should.be.false();
       } catch (err) {
         should.exist(err);
@@ -302,7 +303,7 @@ describe('Factories test', function () {
         });
     });
 
-    it('should create a belongs to association but overwrite if forain key sent', () => {
+    it('should create a belongs to association but overwrite if foreign key sent', () => {
       let sale;
       return factory
         .create('saleA')
@@ -402,7 +403,7 @@ describe('Factories test', function () {
   });
 
   describe('AssocMany', function () {
-    it('should define a salseman asociated to many stores', () => {
+    it('should define a salesman associated to many stores', () => {
       factory.define('storeDef', Store).attr('city', 'London');
       factory
         .define('salesmanWithStores', Salesman)
@@ -426,7 +427,7 @@ describe('Factories test', function () {
       assocManyConfig.StoreHired.should.have.property('plural', 'StoreHired');
     });
 
-    it('should define a store asociated to many salesman using default as', () => {
+    it('should define a store associated to many salesman using default as', () => {
       factory.define('salesmanOne', Salesman).attr('name', 'Pedro');
 
       factory
@@ -456,11 +457,11 @@ describe('Factories test', function () {
         salesman.should.have.property('StoreHired');
         salesman.StoreHired.should.have.length(2);
         const storeP = salesman.StoreHired.find((s) => {
-          return s.city == 'Paris';
+          return s.city === 'Paris';
         });
         should.exist(storeP);
         const storeL = salesman.StoreHired.find((s) => {
-          return s.city == 'London';
+          return s.city === 'London';
         });
         should.exist(storeL);
       });
@@ -552,7 +553,7 @@ describe('Factories test', function () {
   });
 
   describe('hasOne', function () {
-    it('should define a ticket asociated to one discount', () => {
+    it('should define a ticket associated to one discount', () => {
       factory.define('discountFact', Discount).attr('percentage', 20);
 
       factory
@@ -594,7 +595,7 @@ describe('Factories test', function () {
         });
     });
 
-    it('should create a has one association with diferent factory', () => {
+    it('should create a has one association with different factory', () => {
       factory.define('discountFull', Discount).attr('percentage', 100);
       return factory
         .create('ticketWithDiscount', {
@@ -610,7 +611,7 @@ describe('Factories test', function () {
       return factory
         .create('ticketWithDiscount', { MainDiscount: 2 })
         .then((ticket) => {
-          true.should.be.false();
+          ticket.should.be.undefined();
         })
         .catch((err) => {
           err.message.should.equal(
@@ -637,7 +638,7 @@ describe('Factories test', function () {
   });
 
   describe('hasMany', function () {
-    it('should define a sale asociated to many tickets', () => {
+    it('should define a sale associated to many tickets', () => {
       factory.define('ticketFactNoSale', Ticket);
 
       factory
@@ -688,7 +689,7 @@ describe('Factories test', function () {
       return factory
         .create('saleB', { Tickets: [1] })
         .then((ticket) => {
-          true.should.be.false();
+          ticket.should.be.undefined();
         })
         .catch((err) => {
           err.message.should.equal(
