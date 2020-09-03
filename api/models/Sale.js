@@ -9,21 +9,21 @@ const { DataTypes } = require('sequelize');
 module.exports = {
   attributes: {
     total: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.INTEGER
     },
     cancelled_at: {
-      type: DataTypes.DATE,
+      type: DataTypes.DATE
     }
   },
   associations: () => {
     Sale.belongsTo(Store, {
       foreignKey: {
-        name: 'store_key',
+        name: 'store_key'
       }
     });
     Sale.belongsTo(Salesman, {
       foreignKey: {
-        name: 'salesman_key',
+        name: 'salesman_key'
       }
     });
     Sale.hasMany(Ticket, {

@@ -10,7 +10,7 @@ module.exports = {
   attributes: {
     percentage: {
       type: DataTypes.INTEGER
-    },
+    }
   },
   associations: () => {
     Discount.belongsTo(Ticket, {
@@ -20,5 +20,4 @@ module.exports = {
       }
     });
   }
-
 };

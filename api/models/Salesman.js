@@ -9,7 +9,7 @@ const { DataTypes } = require('sequelize');
 module.exports = {
   attributes: {
     name: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING
     }
   },
   associations: () => {
@@ -19,5 +19,4 @@ module.exports = {
       foreignKey: 'salesman_id'
     });
   }
-
 };

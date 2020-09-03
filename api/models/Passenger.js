@@ -9,7 +9,7 @@ const { DataTypes } = require('sequelize');
 module.exports = {
   attributes: {
     name: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING
     },
     is_disabled: {
       type: DataTypes.BOOLEAN,
@@ -19,9 +19,8 @@ module.exports = {
   associations: () => {
     Passenger.hasMany(Ticket, {
       foreignKey: {
-        name: 'passenger_key',
+        name: 'passenger_key'
       }
     });
-  },
-
+  }
 };

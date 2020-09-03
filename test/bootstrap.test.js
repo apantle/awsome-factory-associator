@@ -1,33 +1,40 @@
-require('dotenv').config()
+require('dotenv').config();
 const debug = require('debug');
 const should = require('should');
 const log = debug('awsome-factory');
-const require_tree = require('require-tree')
-const { Sequelize, Model } = require('sequelize');
+const _ = require('lodash');
+const require_tree = require('require-tree');
+const { Sequelize } = require('sequelize');
 
 log('starting tests');
+let conn;
 
 before((done) => {
+  const { AFA_LOGGING: logOption } = process.env;
+  const logger = logOption === 'console'
+    ? console.log
+    : logOption === 'debug'
+      ? log
+      : false;
+
   global.should = should;
-  global.sequelize = new Sequelize(
-    process.env.AFA_DB_NAME,
-    process.env.AFA_DB_USER,
-    process.env.AFA_DB_PASS, {
-      host: process.env.AFA_DB_HOST,
-      port: process.env.AFA_DB_PORT,
-      dialect: process.env.AFA_DB_DIALECT,
-      logging: log,
-      dialectOptions: {
-        ssl: {
-          rejectUnauthorized: false
-        }
+  global.SequelizeConn = conn = new Sequelize({
+    database: process.env.AFA_DB_NAME,
+    username: process.env.AFA_DB_USER,
+    password: process.env.AFA_DB_PASS,
+    host: process.env.AFA_DB_HOST,
+    port: process.env.AFA_DB_PORT,
+    dialect: process.env.AFA_DB_DIALECT,
+    logging: logger,
+    dialectOptions: {
+      ssl: {
+        rejectUnauthorized: false
       }
+    }
   });
-  global.Sequelize = sequelize;
 
   log('to authenticate');
-
-  sequelize.authenticate().then(() => {
+  SequelizeConn.authenticate().then(() => {
     log('Connection has been established successfully.');
     const models = require_tree('../api/models');
 
@@ -35,30 +42,27 @@ before((done) => {
       const modelDefinition = models[modelName];
       const { attributes, options } = modelDefinition;
       log(`Defining model ${modelName}`);
-      const modelClass = sequelize.define(modelName, attributes, options);
-      global[modelClass] = modelClass;
+      const modelClass = SequelizeConn.define(modelName, attributes, options);
+      global[modelName] = modelClass;
 
       if (!options) {
         continue;
       }
-      if(options.classMethods) {
-        Object.keys(options.classMethods).forEach(
-          function defClassMethod(cm) {
-            modelClass[cm] = options.classMethods[cm];
-          }
-        );
+      if (options.classMethods) {
+        Object.keys(options.classMethods).forEach(function defClassMethod(cm) {
+          modelClass[cm] = options.classMethods[cm];
+        });
       }
 
-      if(options.instanceMethods) {
-        Object.keys(options.instanceMethods).forEach(
-          function defInstanceMethod(im) {
-            modelClass.prototype[im] = options.instanceMethods[im];
-          }
-        );
+      if (options.instanceMethods) {
+        Object.keys(options.instanceMethods).forEach(function defInstanceMethod(
+          im
+        ) {
+          modelClass.prototype[im] = options.instanceMethods[im];
+        });
       }
-
     }
-/*
+
     for (const modelName in models) {
       const modelDefinition = models[modelName];
 
@@ -66,30 +70,28 @@ before((done) => {
         log(`Loading associations for ${modelName}`);
         modelDefinition.associations(modelDefinition);
       }
-    }*/
+    }
 
-    console.log({m: sequelize.models});
-    console.dir(global);
-
-    done();
+    (async function () {
+      await SequelizeConn.sync({});
+      global.factory = require('../index.js');
+      factory.load();
+    })().then(done);
   });
 });
 
-describe('true', () => {
-  it('is right', (done) => {
-    ({ d: true }).should.have.property('d');
+after((done) => {
+  if (process.argv.includes('--skip-drop')) {
     done();
-  })
-});
-
-/*
-beforeEach(() => {
-  let models = [];
-  for (let model in sails.models){
-    models.push(sails.models[model]);
+    return;
   }
-  return Promise.map(models, (model) => {
-    return model.destroy({where: {}, force:true});
-  });
+  (async function (models) {
+    for (const modelName in models) {
+      if (!models.hasOwnProperty(modelName)) {
+        continue;
+      }
+      const model = conn.model(modelName);
+      await model.destroy({ force: true, where: {} });
+    }
+  })(conn.models).then(done);
 });
-*/

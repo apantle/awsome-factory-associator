@@ -1,0 +1,8 @@
+.gitlab-ci.yml
+config/local.js
+.nyc_output
+.tmp
+coverage
+logs
+node_modules
+views

@@ -19,12 +19,14 @@
     "mocha": "^8.1.3",
     "mysql2": "^2.1.0",
     "pg": "^8.3.3",
+    "prettier": "^2.1.1",
     "require-tree": "^1.1.1",
     "sequelize": "^5.22.3",
     "should": "^13.2.3"
   },
   "scripts": {
     "test": "mocha test/bootstrap.test.js --timeout 8000",
+    "prelint": "prettier --loglevel silent -w .",
     "lint": "eslint --fix ."
   },
   "repository": {

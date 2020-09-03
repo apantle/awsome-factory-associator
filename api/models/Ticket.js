@@ -9,29 +9,29 @@ const { DataTypes } = require('sequelize');
 module.exports = {
   attributes: {
     seat: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING
     },
     level: {
       type: DataTypes.INTEGER,
       defaultValue: 1
     },
     price: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.INTEGER
     },
     code: {
       type: DataTypes.INTEGER,
       unique: true
-    },
+    }
   },
   associations: () => {
     Ticket.belongsTo(Sale, {
       foreignKey: {
-        name: 'sale_key',
+        name: 'sale_key'
       }
     });
     Ticket.belongsTo(Passenger, {
       foreignKey: {
-        name: 'passenger_key',
+        name: 'passenger_key'
       }
     });
     Ticket.hasOne(Discount, {
