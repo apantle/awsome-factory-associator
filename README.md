@@ -6,6 +6,9 @@
 
 Provides a syntax to **define factories** with **any kind of association**. Helping you create models and the **environment** needed for each **test** with **inline awesome configuration**.
 
+Tests bootstrap loading of models based on [sails-hook-sequelize](https://github.com/KSDaemon/sails-hook-sequelize).
+**Now it can be used with any project using sequelize without forcing to install or lift sails**.
+
 Using as base the code of module **sails-industrial-factories** for the attributes creation.
 
 ## Setup
@@ -146,12 +149,12 @@ When the object to associate has **already** been **crated** its id can be passe
 
 ```javascript
   factory.create("saleFact",{total:10})//Crates a sale and return the promise
-  .then((saleCreated){
+  .then((saleCreated) => {
     factory.create("ticketFact",{Sale:saleCreated.id}); //Uses the sale already created
   })
-  .catch(err){
-    //Handle error
-  };
+  .catch((err) => {
+    // Handle error
+  });
 ```
 
 Only one sale will be crated in the previous example.
@@ -160,12 +163,12 @@ In this case the foreignKey can be used instead of the association. Foreign Keys
 
 ```javascript
   factory.create("saleFact",{total:10})//Crates a sale and return the promise
-  .then((saleCreated){
+  .then((saleCreated) => {
     factory.create("ticketFact",{sale_key:saleCreated.id}); //Uses the sale already created
   })
-  .catch(err){
+  .catch((err) => {
     //Handle error
-  };
+  });
 ```
 
 ###### Passing options for associated model.
@@ -472,7 +475,7 @@ factory.create('saleFactWithTicketsSaved').then((createdSale) => {
 });
 ```
 
-#### InfinteLoops
+#### Infinite Loops
 
 When defining and using factories it is **important** to verify no loops are crated. Since this will take the creation into an **infinite loop**.
 
@@ -502,7 +505,8 @@ Since the factory _salesmanWithStores_ creates a store using the factory _storeW
 
 When using the same factory more than one time the models creation might **fail** due to uniqueness issues. This is why we advise you to use **faker** when defining unique attributes. Even by using random data, it can fail by chance. To avoid such errors the creation of a model can be **retried** in case of uniqueness error.
 
-The **number** of times the creation will be retried can be configured in `config/local.js`:
+The **number** of times the creation will be retried can be
+configured in `config/local.js` or environment var AFA_RETRIES:
 
 ```js
 factory: {
@@ -512,8 +516,6 @@ factory: {
 
 The default value is **1**.
 
-In order to get in your logs the output of retries (and in case the retrying failed, the final error), you must use the environment var `DEBUG=factory` to get a nice output of the reason of the fail.
+In order to get in your logs the output of retries (and in case the retrying failed, the final error), you must use the
+environment var `DEBUG=awsome-factory` to get a nice output of the reason of the fail.
 
-#### Populated Object
-
-The object returned after the creation will be populated, in order to refer to its values and associations during tests. To set the depth of this population use the parameter `{populationDepth: depth }`, where `depth` indicates how many times the nested models associations will be populated. The default value is **3**. Note that when having **circular references**, the returned object will be highly populated so we advise you not to use big numbers in this configuration.
